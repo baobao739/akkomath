@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 7-8 Math: Pre-Algebra → Algebra 1 | Study & Quiz</title>
+  <style>
+    :root {
+      --bg: #0f1419;
+      --surface: #1a2332;
+      --surface2: #243044;
+      --border: #2d3a4f;
+      --text: #e7ecf3;
+      --text-muted: #8b9bb4;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --success: #22c55e;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --accent: #8b5cf6;
+      --radius: 12px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.35);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+    .app {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 100vh;
+    }
+    /* Sidebar */
+    .sidebar {
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 1.25rem;
+      overflow-y: auto;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+    }
+    .logo {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      color: var(--primary);
+    }
+    .logo span { color: var(--text); font-weight: 500; }
+    .subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+    .nav-section {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin: 1.25rem 0 0.5rem;
+    }
+    .nav-item {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 0.6rem 0.75rem;
+      border: none;
+      background: transparent;
+      color: var(--text);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.15s, color 0.15s;
+      margin-bottom: 2px;
+    }
+    .nav-item:hover { background: var(--surface2); }
+    .nav-item.active {
+      background: var(--primary);
+      color: white;
+      font-weight: 600;
+    }
+    .nav-item .num {
+      display: inline-block;
+      width: 1.4rem;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+    .nav-item.active .num { color: rgba(255,255,255,0.7); }
+    /* Main */
+    .main {
+      padding: 1.5rem 2rem 3rem;
+      max-width: 900px;
+    }
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+    .mode-toggle {
+      display: flex;
+      background: var(--surface);
+      border-radius: 10px;
+      padding: 4px;
+      border: 1px solid var(--border);
+    }
+    .mode-btn {
+      padding: 0.5rem 1.1rem;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .mode-btn.active {
+      background: var(--primary);
+      color: white;
+    }
+    .stats {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .stats strong { color: var(--text); }
+    /* Cards */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow);
+    }
+    .card h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+    .card h3 {
+      font-size: 1.05rem;
+      margin: 1.25rem 0 0.5rem;
+      color: var(--primary);
+    }
+    .tips-content {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    .tips-content ul { padding-left: 1.25rem; margin: 0.5rem 0; }
+    .tips-content li { margin-bottom: 0.35rem; }
+    .tips-content strong { color: var(--text); }
+    .formula {
+      background: var(--surface2);
+      border-left: 3px solid var(--accent);
+      padding: 0.75rem 1rem;
+      border-radius: 0 8px 8px 0;
+      margin: 0.75rem 0;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.95rem;
+    }
+    /* Quiz */
+    .quiz-area { display: none; }
+    .quiz-area.active { display: block; }
+    .study-area.active { display: block; }
+    .study-area { display: none; }
+    .question-box {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+      line-height: 1.4;
+    }
+    .answer-input {
+      width: 100%;
+      max-width: 320px;
+      padding: 0.75rem 1rem;
+      font-size: 1.1rem;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      background: var(--bg);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .answer-input:focus { border-color: var(--primary); }
+    .options {
+      display: grid;
+      gap: 0.5rem;
+      max-width: 480px;
+    }
+    .option-btn {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .option-btn:hover { border-color: var(--primary); }
+    .option-btn.selected { border-color: var(--primary); background: rgba(59,130,246,0.15); }
+    .option-btn.correct { border-color: var(--success); background: rgba(34,197,94,0.15); }
+    .option-btn.wrong { border-color: var(--danger); background: rgba(239,68,68,0.15); }
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+    .btn {
+      padding: 0.65rem 1.25rem;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-success { background: var(--success); color: white; }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--border);
+      color: var(--text);
+    }
+    .btn-outline:hover { border-color: var(--primary); }
+    .feedback {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 10px;
+      display: none;
+    }
+    .feedback.show { display: block; }
+    .feedback.correct {
+      background: rgba(34,197,94,0.12);
+      border: 1px solid var(--success);
+      color: #86efac;
+    }
+    .feedback.wrong {
+      background: rgba(239,68,68,0.12);
+      border: 1px solid var(--danger);
+      color: #fca5a5;
+    }
+    .feedback .exp { margin-top: 0.5rem; color: var(--text-muted); font-size: 0.9rem; }
+    .progress-bar {
+      height: 6px;
+      background: var(--surface2);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      width: 0%;
+      transition: width 0.3s;
+    }
+    .lesson-meta {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    /* Mobile */
+    @media (max-width: 800px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar {
+        position: relative;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .main { padding: 1rem; }
+    }
+    .hidden { display: none !important; }
+    .tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      background: var(--surface2);
+      color: var(--text-muted);
+      margin-right: 0.35rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="logo">MathLab <span>7→8</span></div>
+      <div class="subtitle">Pre-Algebra → Algebra 1<br>Study + Quiz · ~400 questions</div>
+
+      <div class="nav-section">Number Sense</div>
+      <button class="nav-item active" data-id="integers"><span class="num">01</span> Integers & Absolute Value</button>
+      <button class="nav-item" data-id="order"><span class="num">02</span> Order of Operations</button>
+      <button class="nav-item" data-id="fractions"><span class="num">03</span> Fractions, Decimals & Percents</button>
+      <button class="nav-item" data-id="ratios"><span class="num">04</span> Ratios & Proportions</button>
+      <button class="nav-item" data-id="exponents"><span class="num">05</span> Exponents & Scientific Notation</button>
+      <button class="nav-item" data-id="roots"><span class="num">06</span> Square Roots & Radicals</button>
+
+      <div class="nav-section">Expressions & Equations</div>
+      <button class="nav-item" data-id="expressions"><span class="num">07</span> Algebraic Expressions</button>
+      <button class="nav-item" data-id="onestep"><span class="num">08</span> One- & Two-Step Equations</button>
+      <button class="nav-item" data-id="multistep"><span class="num">09</span> Multi-Step Equations</button>
+      <button class="nav-item" data-id="inequalities"><span class="num">10</span> Inequalities</button>
+
+      <div class="nav-section">Linear & Systems</div>
+      <button class="nav-item" data-id="linear"><span class="num">11</span> Linear Equations & Slope</button>
+      <button class="nav-item" data-id="systems"><span class="num">12</span> Systems of Equations</button>
+
+      <div class="nav-section">Polynomials & Quadratics</div>
+      <button class="nav-item" data-id="polynomials"><span class="num">13</span> Polynomials</button>
+      <button class="nav-item" data-id="factoring"><span class="num">14</span> Factoring</button>
+      <button class="nav-item" data-id="quadratics"><span class="num">15</span> Quadratic Equations</button>
+      <button class="nav-item" data-id="functions"><span class="num">16</span> Functions & Relations</button>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div class="mode-toggle">
+          <button class="mode-btn active" id="studyModeBtn">Study</button>
+          <button class="mode-btn" id="quizModeBtn">Quiz</button>
+        </div>
+        <div class="stats">
+          <span>Score: <strong id="scoreVal">0</strong> / <strong id="attemptedVal">0</strong></span>
+          <span>Streak: <strong id="streakVal">0</strong></span>
+        </div>
+      </div>
+
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+      <!-- STUDY -->
+      <div class="study-area active" id="studyArea">
+        <div class="card">
+          <div class="lesson-meta"><span class="tag" id="lessonTag">Pre-Algebra</span> Lesson <span id="lessonNum">1</span> of 16</div>
+          <h2 id="lessonTitle">Integers & Absolute Value</h2>
+          <div class="tips-content" id="tipsContent"></div>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="startQuizFromStudy">Start Quiz on this Lesson</button>
+        </div>
+      </div>
+
+      <!-- QUIZ -->
+      <div class="quiz-area" id="quizArea">
+        <div class="card">
+          <div class="lesson-meta">Quiz · <span id="quizLessonName">Integers</span> · Question <span id="qNum">1</span></div>
+          <div class="question-box" id="questionText">Loading…</div>
+          <div id="answerArea"></div>
+          <div class="feedback" id="feedback"></div>
+          <div class="btn-row">
+            <button class="btn btn-primary" id="checkBtn">Check Answer</button>
+            <button class="btn btn-outline hidden" id="nextBtn">Next Question</button>
+            <button class="btn btn-outline" id="hintBtn">Hint / Tip</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+<script>
+/* ============================================================
+   DATA: 16 Lessons with tips + question generators
+   Each generator can produce dozens of unique questions.
+   Combined bank effectively > 400 unique questions that cycle.
+   ============================================================ */
+
+const lessons = {
+  integers: {
+    title: "Integers & Absolute Value",
+    tag: "Pre-Algebra",
+    num: 1,
+    tips: `
+      <h3>Key Ideas</h3>
+      <ul>
+        <li><strong>Integers</strong> are whole numbers and their opposites: …, −3, −2, −1, 0, 1, 2, 3, …</li>
+        <li><strong>Absolute value</strong> |a| is the distance from a to 0 on the number line (always ≥ 0).</li>
+        <li>Adding same signs: add absolute values, keep the common sign.</li>
+        <li>Adding different signs: subtract absolute values, take the sign of the larger absolute value.</li>
+        <li>Subtracting is adding the opposite: a − b = a + (−b).</li>
+        <li>Multiplying/dividing two negatives → positive; one negative → negative.</li>
+      </ul>
+      <div class="formula">|−7| = 7 &nbsp;&nbsp;|&nbsp;&nbsp; −3 + 8 = 5 &nbsp;&nbsp;|&nbsp;&nbsp; −4 − (−9) = 5</div>
+      <h3>Tips & Common Mistakes</h3>
+      <ul>
+        <li>Always draw a quick number line when signs confuse you.</li>
+        <li>Double negative becomes positive: −(−5) = 5.</li>
+        <li>Absolute value bars act like grouping symbols — do them early.</li>
+        <li>When comparing integers, the one farther right is greater (−2 > −5).</li>
+      </ul>
+    `,
+    generate() {
+      const type = randInt(1, 6);
+      let q, ans, exp, opts = null;
+      if (type === 1) { // absolute value
+        const n = randInt(-20, 20);
+        q = `What is |${n}|?`;
+        ans = Math.abs(n).toString();
+        exp = `Absolute value is the distance from ${n} to 0, which is ${Math.abs(n)}.`;
+      } else if (type === 2) { // add integers
+        const a = randInt(-15, 15), b = randInt(-15, 15);
+        q = `Compute: ${a} + (${b})`;
+        ans = (a + b).toString();
+        exp = `Adding ${a} and ${b} gives ${a + b}.`;
+      } else if (type === 3) { // subtract
+        const a = randInt(-12, 12), b = randInt(-12, 12);
+        q = `Compute: ${a} − (${b})`;
+        ans = (a - b).toString();
+        exp = `${a} − ${b} = ${a} + (${-b}) = ${a - b}.`;
+      } else if (type === 4) { // multiply
+        const a = randInt(-10, 10) || 2, b = randInt(-10, 10) || -3;
+        q = `Compute: (${a}) × (${b})`;
+        ans = (a * b).toString();
+        exp = `Product of ${a} and ${b} is ${a * b}.`;
+      } else if (type === 5) { // compare
+        const a = randInt(-20, 20), b = randInt(-20, 20);
+        q = `Which is greater: ${a} or ${b}? (enter the larger number)`;
+        ans = Math.max(a, b).toString();
+        exp = `On the number line, ${Math.max(a,b)} is to the right of ${Math.min(a,b)}.`;
+      } else { // opposites
+        const n = randInt(-25, 25);
+        q = `What is the opposite (additive inverse) of ${n}?`;
+        ans = (-n).toString();
+        exp = `The opposite of ${n} is ${-n} because ${n} + (${-n}) = 0.`;
+      }
+      return { q, ans, exp, type: 'input' };
+    }
+  },
+
+  order: {
+    title: "Order of Operations (PEMDAS)",
+    tag: "Pre-Algebra",
+    num: 2,
+    tips: `
+      <h3>Key Ideas</h3>
+      <ul>
+        <li><strong>PEMDAS</strong>: Parentheses → Exponents → Multiplication & Division (left to right) → Addition & Subtraction (left to right).</li>
+        <li>Multiplication and division have equal priority; do whichever comes first from the left.</li>
+        <li>Same for addition and subtraction.</li>
+        <li>Grouping symbols include ( ), [ ], { }, and absolute-value bars | |.</li>
+      </ul>
+      <div class="formula">3 + 4 × 2 = 3 + 8 = 11 &nbsp;&nbsp;(not 14!)</div>
+      <h3>Tips</h3>
+      <ul>
+        <li>Write intermediate steps — never try to do everything in your head.</li>
+        <li>When you see a fraction bar, treat the numerator and denominator as grouped.</li>
+        <li>Exponents bind tightly: −3² = −9, but (−3)² = 9.</li>
+      </ul>
+    `,
+    generate() {
+      const type = randInt(1, 5);
+      let q, ans, exp;
+      if (type === 1) {
+        const a = randInt(2, 8), b = randInt(2, 6), c = randInt(1, 5);
+        q = `Evaluate: ${a} + ${b} × ${c}`;
+        ans = (a + b * c).toString();
+        exp = `Multiply first: ${b}×${c}=${b*c}, then ${a}+${b*c}=${a+b*c}.`;
+      } else if (type === 2) {
+        const a = randInt(10, 20), b = randInt(2, 5), c = randInt(1, 4);
+        q = `Evaluate: (${a} − ${b}) × ${c}`;
+        ans = ((a - b) * c).toString();
+        exp = `Parentheses first: ${a}-${b}=${a-b}, then ×${c} = ${(a-b)*c}.`;
+      } else if (type === 3) {
+        const a = randInt(2, 5), b = randInt(2, 4);
+        q = `Evaluate: ${a}² + ${b}`;
+        ans = (a*a + b).toString();
+        exp = `${a}² = ${a*a}, plus ${b} = ${a*a+b}.`;
+      } else if (type === 4) {
+        const a = randInt(12, 30), b = randInt(2, 6), c = randInt(1, 5);
+        q = `Evaluate: ${a} ÷ ${b} + ${c}`;
+        ans = (Math.floor(a / b) + c).toString();
+        exp = `Division first (left to right): ${a}÷${b}=${Math.floor(a/b)}, then +${c}.`;
+      } else {
+        const a = randInt(2, 6), b = randInt(3, 8), c = randInt(1, 4), d = randInt(1, 5);
+        q = `Evaluate: ${a} × (${b} − ${c}) + ${d}`;
+        ans = (a * (b - c) + d).toString();
+        exp = `Inside parentheses: ${b}-${c}=${b-c}. Then ${a}×${b-c}=${a*(b-c)}, +${d}=${a*(b-c)+d}.`;
+      }
+      return { q, ans, exp, type: 'input' };
+    }
+  },
+
+  fractions: {
+    title: "Fractions, Decimals & Percents",
+    tag: "Pre-Algebra",
+    num: 3,
+    tips: `
+      <h3>Key Ideas</h3>
+      <ul>
+        <li>A fraction a/b means a ÷ b. Simplify by dividing numerator and denominator by the GCF.</li>
+        <li>To add/subtract fractions, find a common denominator.</li>
+        <li>Multiply fractions: multiply numerators and denominators.</li>
+        <li>Divide fractions: multiply by the reciprocal.</li>
+        <li>Percent means “per hundred”: 25% = 25/100 = 0.25.</li>
+        <li>Convert fraction ↔ decimal by dividing; decimal ↔ percent by ×100 or ÷100.</li>
+      </ul>
+      <div class="formula">3/4 = 0.75 = 75% &nbsp;&nbsp;|&nbsp;&nbsp; 2/5 + 1/5 = 3/5</div>
+      <h3>Tips</h3>
+      <ul>
+        <li>Always simplify your final answer.</li>
+        <li>For mixed numbers, convert to improper fractions before multiplying/dividing.</li>
+        <li>When converting percent to decimal, move the decimal point two places left.</li>
+      </ul>
+    `,
+    generate() {
+      const type = randInt(1, 6);
+      let q, ans, exp;
+      if (type === 1) { // simplify
+        const dens = [4,6,8,9,10,12,15,16,18,20];
+        const d = dens[randInt(0, dens.length-1)];
+        const n = randInt(1, d-1);
+        const g = gcd(n, d);
+        q = `Simplify the fraction ${n}/${d}`;
+        ans = `${n/g}/${d/g}`;
+        exp = `GCF of ${n} and ${d} is ${g}. Divide both by ${g}: ${n/g}/${d/g}.`;
+      } else if (type === 2) { // fraction to percent
+        const pairs = [[1,2,50],[1,4,25],[3,4,75],[1,5,20],[2,5,40],[3,5,60],[1,10,10],[3,10,30],[1,8,12.5],[3,8,37.5]];
+        const p = pairs[randInt(0, pairs.length-1)];
+        q = `Convert ${p[0]}/${p[1]} to a percent`;
+        ans = p[2].toString();
+        exp = `${p[0]}/${p[1]} = ${p[2]/100 = ${p[2]}%.`;
+      } else if (type === 3) { // percent of a number
+        const pct = [10,20,25,50,75][randInt(0,4)];
+        const num = randInt(20, 200);
+        q = `What is ${pct}% of ${num}?`;
+        ans = ((pct/100)*num).toString();
+        exp = `${pct}% = ${pct/100}. ${pct/100} × ${num} = ${(pct/100)*num}.`;
+      } else if (type === 4) { // add same denom
+        const d = [5,6,8,10,12][randInt(0,4)];
+        const a = randInt(1, d-1), b = randInt(1, d-1);
+        const sum = a + b;
+        const g = gcd(sum, d);
+        q = `Compute: ${a}/${d} + ${b}/${d} (simplify if possible)`;
+        ans = g === d ? (sum/d).toString() : `${sum/g}/${d/g}`;
+        exp = `Same denominator: add numerators → ${sum}/${d}${g>1 ? `, simplify by ${g}` : ''}.`;
+      } else if (type === 5) { // multiply
+        const a = randInt(1,5), b = randInt(2,6), c = randInt(1,4), d = randInt(2,5);
+        const num = a*c, den = b*d, g = gcd(num, den);
+        q = `Compute: (${a}/${b}) × (${c}/${d}) (simplify)`;
+        ans = `${num/g}/${den/g}`;
+        exp = `Multiply numerators and denominators: ${num}/${den}, simplify by GCF ${g}.`;
+      } else { // decimal to fraction
+        const decs = [[0.5,'1/2'],[0.25,'1/4'],[0.75,'3/4'],[0.2,'1/5'],[0.4,'2/5'],[0.6,'3/5'],[0.8,'4/5'],[0.125,'1/8']];
+        const p = decs[randInt(0, decs.length-1)];
+        q = `Convert ${p[0]} to a simplified fraction`;
+        ans = p[1];
+        exp = `${p[0]} = ${p[1]}.`;
+      }
+      return { q, ans, exp, type: 'input' };
+    }
+  },
+
+  ratios: {
+    title: "Ratios & Proportions",
+    tag: "Pre-Algebra",
+    num: 4,
+    tips: `
+      <h3>Key Ideas</h3>
+      <ul>
+        <li>A <strong>ratio</strong> compares two quantities (a:b or a/b).</li>
+        <li>A <strong>proportion</strong> is an equation stating two ratios are equal: a/b = c/d.</li>
+        <li>Cross-multiply to solve: if a/b = c/d then a·d = b·c.</li>
+        <li>Unit rate is a ratio with denominator 1 (e.g., miles per hour).</li>
+        <li>Scale factor multiplies all lengths in a similar figure.</li>
+      </ul>
+      <div class="formula">If 3/x = 9/12 then 3·12 = x·9 → x = 4</div>
+      <h3>Tips</h3>
+      <ul>
+        <li>Always check that units match when writing ratios.</li>
+        <li>For word problems, define the variable clearly before setting up the proportion.</li>
+        <li>Simplify ratios first when possible.</li>
+      </ul>
+    `,
+    generate() {
+      const type = randInt(1, 5);
+      let q, ans, exp;
+      if (type === 1) { // solve proportion
+        const a = randInt(2, 9), c = randInt(2, 9), d = randInt(3, 12);
+        const b = Math.round((a * d) / c);
+        q = `Solve for x: ${a}/x = ${c}/${d}`;
+        ans = b.toString();
+        exp = `Cross-multiply: ${a}·${d} = x·${c} → ${a*d} = ${c}x → x = ${b}.`;
+      } else if (type === 2) {
+        const a = randInt(2, 8), b = randInt(3, 10), k = randInt(2, 5);
+        q = `Solve for x: ${a}/${b} = x/${b*k}`;
+        ans = (a * k).toString();
+        exp = `Cross-multiply or scale: numerator scales by ${k}, so x = ${a*k}.`;
+      } else if (type === 3) { // unit rate
+        const miles = randInt(40, 120), hours = [2,3,4,5][randInt(0,3)];
+        q = `A car travels ${miles} miles in ${hours} hours. What is the unit rate (mph)?`;
+        ans = (miles / hours).toString();
+        exp = `${miles} ÷ ${hours} = ${miles/hours} miles per hour.`;
+      } else if (type === 4) { // simplify ratio
+        const g = randInt(2, 6), a = g * randInt(2, 8), b = g * randInt(2, 8);
+        q = `Simplify the ratio ${a}:${b}`;
+        ans = `${a/g}:${b/g}`;
+        exp = `Divide both parts by GCF ${g}: ${a/g}:${b/g}.`;
+      } else {
+        const price = randInt(3, 12), items = randInt(2, 6);
+        const want = randInt(items+1, items*3);
+        q = `If ${items} items cost $${price}, how much do ${want} items cost? (assume constant rate)`;
+        ans = ((price / items) * want).toFixed(2).replace(/\.00$/, '');
+        exp = `Unit price = $${price}/${items} = $${(price/items).toFixed(2)}. Then × ${want}.`;
+      }
+      return { q, ans, exp, type: 'input' };
+    }
+  },
+
+  exponents: {
+    title: "Exponents & Scientific Notation",
+    tag: "Pre-Algebra / Algebra 1",
+    num: 5,
+    tips: `
+      <h3>Key Ideas</h3>
+      <ul>
+        <li>aⁿ means a multiplied by itself n times.</li>
+        <li>Product rule: aᵐ · aⁿ = aᵐ⁺ⁿ</li>
+        <li>Quotient rule: aᵐ / aⁿ = aᵐ⁻ⁿ (a ≠ 0)</li>
+        <li>Power of a power: (aᵐ)ⁿ = aᵐⁿ</li>
+        <li>Zero exponent: a⁰ = 1 (a ≠ 0)</li>
+        <li>Negative exponent: a⁻ⁿ = 1/aⁿ</li>
+        <li>Scientific notation: c × 10ⁿ where 1 ≤ |c| < 10.</li>
+      </ul>
+      <div class="formula">2³ · 2⁴ = 2⁷ = 128 &nbsp;&nbsp;|&nbsp;&nbsp; 5⁻² = 1/25</div>
+      <h3>Tips</h3>
+      <ul>
+        <li>Bases must be the same to add/subtract exponents.</li>
+        <li>When moving a power across the fraction bar, the sign of the exponent flips.</li>
+        <li>In scientific notation, positive n means large number; negative n means small.</li>
+      </ul>
+    `,
+    generate() {
+      const type = randInt(1, 6);
+      let q, ans, exp;
+      if (type === 1) {
+        const b = randInt(2, 6), e = randInt(2, 4);
+        q = `Evaluate: ${b}^${e}`;
+        ans = Math.pow(b, e).toString();
+        exp = `${b} multiplied by itself ${e} times = ${Math.pow(b,e)}.`;
+      } else if (type === 2) {
+        const b = randInt(2, 5), m = randInt(2, 5), n = randInt(1, 4);
+        q = `Simplify: ${b}^${m} · ${b}^${n} (write as a single power or number)`;
+        ans = Math.pow(b, m+n).toString();
+        exp = `Product rule: ${b}^{${m}+${n}} = ${b}^{${m+n}} = ${Math.pow(b,m+n)}.`;
+      } else if (type === 3) {
+        const b = randInt(2, 6), e = randInt(1, 3);
+        q = `Evaluate: ${b}^0`;
+        ans = '1';
+        exp = `Any non-zero number to the power of 0 equals 1.`;
+      } else if (type === 4) {
+        const b = [2,3,4,5][randInt(0,3)], e = randInt(1, 3);
+        q = `Rewrite with a positive exponent and evaluate if possible: ${b}^${-e}`;
+        ans = `1/${Math.pow(b,e)}`;
+        exp = `${b}^{−${e}} = 1/${b}^${e} = 1/${Math.pow(b,e)}.`;
+      } else if (type === 5) {
+        const c = randInt(1, 9), expn = randInt(2, 5);
+        const num = c * Math.pow(10, expn);
+        q = `Write ${num} in scientific notation (form a×10^b)`;
+        ans = `${c}×10^${expn}`;
+        exp = `Move the decimal ${expn} places left: ${c} × 10^${expn}.`;
+      } else {
+        const b = randInt(2, 4), m = randInt(2, 4);
+        q = `Simplify: (${b}^${m})^2`;
+        ans = Math.pow(b, m*2).toString();
+        exp = `Power of a power: ${b}^{${m}·2} = ${b}^{${m*2}} = ${Math.pow(b,m*2)}.`;
+      }
+      return { q, ans, exp, type: 'input' };
+    }
+  },
+
+  roots: {
+    title: "Square Roots & Radicals",
+    tag: "Pre-Algebra / Algebra 1",
+    num: 6,
+    tips: `
+      <h3>Key Ideas</h3>
+      <ul>
+        <li>√a is the non-negative number whose square is a (principal square root).</li>
+        <li>Perfect squares: 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, …</li>
+        <li>√(a·b) = √a · √b &nbsp;&nbsp;and&nbsp;&nbsp; √(a/b) = √a / √b (for a,b ≥ 0).</li>
+        <li>Simplify radicals by factoring out perfect-square factors.</li>
+        <li>Irrational numbers cannot be written as a ratio of integers (√2, √3, π, …).</li>
+      </ul>
+      <div class="formula">√50 = √(25·2) = 5√2 &nbsp;&nbsp;|&nbsp;&nbsp; √9 = 3</div>
+      <h3>Tips</h3>
+      <ul>
+        <li>Memorize perfect squares up to at least 15² = 225.</li>
+        <li>You cannot simplify √(a+b) into √a + √b.</li>
+        <li>Estimate non-perfect squares by finding the two closest perfect squares.</li>
+      </ul>
+    `,
+    generate() {
+      const type = randInt(1, 5);
+      let q, ans, exp;
+      if (type === 1) {
+        const squares = [4,9,16,25,36,49,64,81,100,121,144,169,196,225];
+        const s = squares[randInt(0, squares.length-1)];
+        q = `Evaluate: √${s}`;
+        ans = Math.sqrt(s).toString();
+        exp = `${Math.sqrt(s)}² = ${s}, so √${s} = ${Math.sqrt(s)}.`;
+      } else if (type === 2) {
+        const pairs = [[8,'2√2'],[12,'2√3'],[18,'3√2'],[20,'2√5'],[27,'3√3'],[32,'4√2'],[45,'3√5'],[50,'5√2'],[72,'6√2'],[75,'5√3']];
+        const p = pairs[randInt(0, pairs.length-1)];
+        q = `Simplify: √${p[0]}`;
+        ans = p[1];
+        exp = `Factor out the largest perfect square and simplify.`;
+      } else if (type === 3) {
+        const a = [4,9,16,25,36][randInt(0,4)];
+        const b = [4,9,16,25][randInt(0,3)];
+        q = `Evaluate: √${a} + √${b}`;
+        ans = (Math.sqrt(a) + Math.sqrt(b)).toString();
+        exp = `√${a}=${Math.sqrt(a)}, √${b}=${Math.sqrt(b)}, sum = ${Math.sqrt(a)+Math.sqrt(b)}.`;
+      } else if (type === 4) {
+        const n = randInt(5, 15);
+        q = `Between which two consecutive integers does √${n*n+3} lie? (enter like 5 and 6)`;
+        const root = Math.sqrt(n*n + 3);
+        const low = Math.floor(root);
+        ans = `${low} and ${low+1}`;
+        exp = `${low}² = ${low*low}, ${(low+1)}² = ${(low+1)*(low+1)}. √${n*n+3} is between them.`;
+      } else {
+        const a = randInt(2, 8);
+        q = `What is (√${a})² ?`;
+        ans = a.toString();
+        exp = `Squaring a square root cancels: (√${a})² = ${a}.`;
+      }
+      return { q, ans, exp, type: 'input' };
+    }
+  },
+
+  expressions: {
+    title: "Algebraic Expressions & Like Terms",
+    tag: "Pre-Algebra / Algebra 1",
+    num: 7,
+    tips: `
+      <h3>Key Ideas</h3>
+      <ul>
+        <li>A variable is a symbol (usually a letter) that represents a number.</li>
+        <li>An expression is a combination of numbers, variables, and operations (no equals sign).</li>
+        <li><strong>Like terms</strong> have the exact same variable part (same powers).</li>
+        <li>Combine like terms by adding/subtracting their coefficients.</li>
+        <li>Distributive property: a(b + c) = ab + ac.</li>
+        <li>Evaluate by substituting the given value(s) for the variable(s).</li>
+      </ul>
+      <div class="formula">3x + 5x = 8x &nbsp;&nbsp;|&nbsp;&nbsp; 2(x + 4) = 2x + 8</div>
+      <h3>Tips</h3>
+      <ul>
+        <li>x and x² are NOT like terms.</li>
+        <li>The coefficient of x is understood to be 1; of −x is −1.</li>
+        <li>Always distribute the negative sign carefully: −(2x − 3) = −2x + 3.</li>
+      </ul>
+    `,
+    generate() {
+      const type = randInt(1, 5);
+      let q, ans, exp;
+      if (type === 1) {
+        const a = randInt(2, 9), b = randInt(1, 8), c = randInt(1, 6);
+        q = `Simplify: ${a}x + ${b}x + ${c}`;
+        ans = `${a+b}x + ${c}`;
+        exp = `Combine like terms: (${a}+${b})x = ${a+b}x, constant stays ${c}.`;
+      } else if (type === 2) {
+        const a = randInt(2, 6), b = randInt(1, 5), c = randInt(2, 7);
+        q = `Simplify: ${a}(x + ${b}) + ${c}`;
+        ans = `${a}x + ${a*b + c}`;
+        exp = `Distribute: ${a}x + ${a*b}, then +${c} → ${a}x + ${a*b+c}.`;
+      } else if (type === 3) {
+        const a = randInt(3, 8), b = randInt(1, 5);
+        const x = randInt(2, 6);
+        q = `Evaluate  ${a}x − ${b}  when x = ${x}`;
+        ans = (a*x - b).toString();
+        exp = `Substitute: ${a}(${x}) − ${b} = ${a*x} − ${b} = ${a*x-b}.`;
+      } else if (type === 4) {
+        const a = randInt(2, 7), b = randInt(2, 6), c = randInt(1, 5);
+        q = `Simplify: ${a}x − ${b}x + ${c}x`;
+        ans = `${a - b + c}x`;
+        exp = `All are like terms: (${a} − ${b} + ${c})x = ${a-b+c}x.`;
+      } else {
+        const a = randInt(2, 5), b = randInt(3, 8);
+        q = `Expand: ${a}(2x − ${b})`;
+        ans = `${2*a}x − ${a*b}`;
+        exp = `Distribute: ${a}·2x = ${2*a}x, ${a}·(−${b}) = −${a*b}.`;
+      }
+      return { q, ans, exp, type: 'input' };
+    }
+  },
+
+  onestep: {
+    title: "One-Step & Two-Step Equations",
+    tag: "Pre-Algebra / Algebra 1",
+    num: 8,
+    tips: `
+      <h3>Key Ideas</h3>
+      <ul>
+        <li>To solve an equation, isolate the variable by doing the inverse operation to both sides.</li>
+        <li>Addition ↔ Subtraction; Multiplication ↔ Division.</li>
+        <li>Two-step: undo addition/subtraction first, then multiplication/division (or vice-versa depending on form).</li>
+        <li>Always check your solution by substituting back into the original equation.</li>
+      </ul>
+      <div class="formula">x + 7 = 12 → x = 5 &nbsp;&nbsp;|&nbsp;&nbsp; 3x − 4 = 11 → 3x = 15 → x = 5</div>
+      <h3>Tips</h3>
+      <ul>
+        <li>Keep the equation balanced — whatever you do to one side, do to the other.</li>
+        <li>Write the inverse operation clearly each time.</li>
+        <li>For two-step, think of the order of operations in reverse.</li>
+      </ul>
+    `,
+    generate() {
+      const type = randInt(1, 5);
+      let q, ans, exp;
+      if (type === 1) {
+        const a = randInt(5, 20), b = randInt(1, 10);
+        q = `Solve: x + ${b} = ${a}`;
+        ans = (a - b).toString();
+        exp = `Subtract ${b} from both sides: x = ${a} − ${b} = ${a-b}.`;
+      } else if (type === 2) {
+        const a = randInt(2, 9), b = randInt(12, 40);
+        q = `Solve: ${a}x = ${b}`;
+        ans = (b / a).toString();
+        exp = `Divide both sides by ${a}: x = ${b}/${a} = ${b/a}.`;
+      } else if (type === 3) {
+        const a = randInt(2, 6), b = randInt(1, 10), c = randInt(10, 30);
+        q = `Solve: ${a}x + ${b} = ${c}`;
+        ans = ((c - b) / a).toString();
+        exp = `Subtract ${b}: ${a}x = ${c-b}. Divide by ${a}: x = ${(c-b)/a}.`;
+      } else if (type === 4) {
+        const a = randInt(2, 7), b = randInt(1, 8), c = randInt(5, 25);
+        q = `Solve: ${a}x − ${b} = ${c}`;
+        ans = ((c + b) / a).toString();
+        exp = `Add ${b}: ${a}x = ${c+b}. Divide by ${a}: x = ${(c+b)/a}.`;
+      } else {
+        const a = randInt(3, 9), b = randInt(2, 6);
+        q = `Solve: x / ${b} = ${a}`;
+        ans = (a * b).toString();
+        exp = `Multiply both sides by ${b}: x = ${a}·${b} = ${a*b}.`;
+      }
+      return { q, ans, exp, type: 'input' };
+    }
+  },
+
+  multistep: {
+    title: "Multi-Step Equations",
+    tag: "Algebra 1",
+    num: 9,
+    tips: `
+      <h3>Key Ideas</h3>
+      <ul>
+        <li>Distribute first if there are parentheses.</li>
+        <li>Combine like terms on each side.</li>
+        <li>Get all variable terms on one side and constants on the other.</li>
+        <li>Then solve the resulting one- or two-step equation.</li>
+        <li>Equations can have one solution, no solution, or infinitely many solutions.</li>
+      </ul>
+      <div class="formula">2(x + 3) = 5x − 4 → 2x + 6 = 5x − 4 → 6 + 4 = 5x − 2x → 10 = 3x → x = 10/3</div>
+      <h3>Tips</h3>
+      <ul>
+        <li>If variables cancel and you get a true statement (e.g. 5 = 5), infinite solutions.</li>
+        <li>If variables cancel and you get a false statement (e.g. 3 = 7), no solution.</li>
+        <li>Clear fractions early by multiplying through by the LCD.</li>
+      </ul>
+    `,
+    generate() {
+      const type = randInt(1, 4);
+      let q, ans, exp;
+      if (type === 1) {
+        const a = randInt(2, 5), b = randInt(1, 6), c = randInt(2, 6), d = randInt(1, 8);
+        // a(x + b) = c x + d
+        // a x + a b = c x + d → a x - c x = d - a b → x (a-c) = d - a b
+        const left = a * b, right = d;
+        const coef = a - c;
+        if (coef === 0) { // force a different type
+          return lessons.multistep.generate();
+        }
+        const sol = (d - a * b) / coef;
+        q = `Solve: ${a}(x + ${b}) = ${c}x + ${d}`;
+        ans = Number.isInteger(sol) ? sol.toString() : sol.toFixed(2);
+        exp = `Distribute: ${a}x + ${a*b} = ${c}x + ${d}. Subtract ${c}x and ${a*b}: ${coef}x = ${d - a*b}. x = ${ans}.`;
+      } else if (type === 2) {
+        const a = randInt(3, 8), b = randInt(2, 6), c = randInt(1, 5);
+        q = `Solve: ${a}x − ${b} = ${c}x + ${(a-c)*4 + b}`; // designed so x=4
+        ans = '4';
+        exp = `Subtract ${c}x: ${(a-c)}x − ${b} = ${(a-c)*4 + b}. Add ${b}: ${(a-c)}x = ${(a-c)*4}. x = 4.`;
+      } else if (type === 3) {
+        const a = randInt(2, 5), b = randInt(3, 9);
+        q = `Solve: ${a}x + ${b} = ${a}x + ${b + 3}`; // no solution
+        ans = 'no solution';
+        exp = `Subtract ${a}x from both sides: ${b} = ${b+3}, which is false. No solution.`;
+      } else {
+        const a = randInt(2, 6), b = randInt(1, 5);
+        q = `Solve: ${a}(x − ${b}) = ${a}x − ${a*b}`; // infinite
+        ans = 'infinite';
+        exp = `Distribute: ${a}x − ${a*b} = ${a}x − ${a*b}. Always true → infinitely many solutions.`;
+      }
+      return { q, ans, exp, type: 'input' };
+    }
+  },
+
+  inequalities: {
+    title: "Inequalities",
+    tag: "Algebra 1",
+    num: 10,
+    tips: `
+      <h3>Key Ideas</h3>
+      <ul>
+        <li>Inequality symbols: < (less), > (greater), ≤ (less or equal), ≥ (greater or equal).</li>
+        <li>Solving is almost the same as equations, EXCEPT when you multiply or divide by a negative number you must flip the inequality sign.</li>
+        <li>Graph on a number line: open circle for < or >; closed circle for ≤ or ≥.</li>
+        <li>Compound inequalities: “and” (intersection) vs “or” (union).</li>
+      </ul>
+      <div class="formula">−2x > 6 → divide by −2 and flip → x < −3</div>
+      <h3>Tips</h3>
+      <ul>
+        <li>Always check a test point after flipping the sign.</li>
+        <li>Remember: multiplying/dividing by a positive keeps the sign; by a negative reverses it.</li>
+      </ul>
+    `,
+    generate() {
+      const type = randInt(1, 4);
+      let q, ans, exp;
+      if (type === 1) {
+        const b = randInt(3, 12), a = randInt(b+1, 20);
+        q = `Solve: x + ${b} < ${a} (write like x < 5)`;
+        ans = `x < ${a - b}`;
+        exp = `Subtract ${b}: x < ${a-b}.`;
+      } else if (type === 2) {
+        const a = randInt(2, 6), c = randInt(8, 24);
+        q = `Solve: ${a}x ≥ ${c} (write like x ≥ 3)`;
+        ans = `x ≥ ${c / a}`;
+        exp = `Divide by ${a} (positive, sign stays): x ≥ ${c/a}.`;
+      } else if (type === 3) {
+        const a = randInt(2, 5), c = randInt(6, 20);
+        q = `Solve: −${a}x > ${c} (remember to flip!)`;
+        const val = -c / a;
+        ans = `x < ${val}`;
+        exp = `Divide by −${a} and flip the sign: x < ${val}.`;
+      } else {
+        const a = randInt(2, 6), b = randInt(1, 8), c = randInt(10, 30);
+        q = `Solve: ${a}x − ${b} ≤ ${c}`;
+        const val = (c + b) / a;
+        ans = `x ≤ ${val}`;
+        exp = `Add ${b}: ${a}x ≤ ${c+b}. Divide by ${a}: x ≤ ${val}.`;
+      }
+      return { q, ans, exp, type: 'input' };
+    }
+  },
+
+  linear: {
+    title: "Linear Equations, Slope & Graphing",
+    tag: "Algebra 1",
+    num: 11,
+    tips: `
+      <h3>Key Ideas</h3>
+      <ul>
+        <li>Slope-intercept form: y = mx + b, where m = slope, b = y-intercept.</li>
+        <li>Slope m = (y₂ − y₁)/(x₂ − x₁) = rise/run.</li>
+        <li>Positive slope rises left→right; negative falls; zero is horizontal; undefined is vertical.</li>
+        <li>Point-slope form: y − y₁ = m(x − x₁).</li>
+        <li>Standard form: Ax + By = C.</li>
+      </ul>
+      <div class="formula">m = (y₂−y₁)/(x₂−x₁) &nbsp;&nbsp;|&nbsp;&nbsp; y = 2x − 3 has slope 2, y-intercept −3</div>
+      <h3>Tips</h3>
+      <ul>
+        <li>To graph y = mx + b: plot b on the y-axis, then use slope to find another point.</li>
+        <li>Parallel lines have equal slopes; perpendicular lines have negative-reciprocal slopes.</li>
+      </ul>
+    `,
+    generate() {
+      const type = randInt(1, 5);
+      let q, ans, exp;
+      if (type === 1) {
+        const x1 = randInt(-3, 3), y1 = randInt(-5, 5), x2 = x1 + randInt(1, 4), y2 = y1 + randInt(-6, 6);
+        const m = (y2 - y1) / (x2 - x1);
+        q = `Find the slope of the line through (${x1},${y1}) and (${x2},${y2})`;
+        ans = Number.isInteger(m) ? m.toString() : m.toFixed(2);
+        exp = `m = (${y2}−${y1})/(${x2}−${x1}) = ${y2-y1}/${x2-x1} = ${ans}.`;
+      } else if (type === 2) {
+        const m = randInt(-4, 4) || 2, b = randInt(-5, 5);
+        q = `What is the slope of the line y = ${m}x + ${b}?`;
+        ans = m.toString();
+        exp = `In y = mx + b, the coefficient of x is the slope: ${m}.`;
+      } else if (type === 3) {
+        const m = randInt(-3, 3) || 1, b = randInt(-6, 6);
+        q = `What is the y-intercept of y = ${m}x + (${b})?`;
+        ans = b.toString();
+        exp = `The constant term b is the y-intercept: ${b}.`;
+      } else if (type === 4) {
+        const m = randInt(1, 5), b = randInt(-4, 4);
+        const x = randInt(1, 5);
+        q = `For the line y = ${m}x + ${b}, what is y when x = ${x}?`;
+        ans = (m * x + b).toString();
+        exp = `y = ${m}(${x}) + ${b} = ${m*x + b}.`;
+      } else {
+        const m = randInt(-3, 3) || 2;
+        q = `A line has slope ${m} and passes through the origin. Write its equation (y = …)`;
+        ans = `y = ${m}x`;
+        exp = `Through origin means b = 0, so y = ${m}x.`;
+      }
+      return { q, ans, exp, type: 'input' };
+    }
+  },
+
+  systems: {
+    title: "Systems of Equations",
+    tag: "Algebra 1",
+    num: 12,
+    tips: `
+      <h3>Key Ideas</h3>
+      <ul>
+        <li>A system is two (or more) equations with the same variables.</li>
+        <li>Solution is the ordered pair (x, y) that satisfies both equations.</li>
+        <li>Methods: Graphing, Substitution, Elimination (addition).</li>
+        <li>One solution (intersecting lines), no solution (parallel), infinitely many (same line).</li>
+      </ul>
+      <div class="formula">Substitution: solve one equation for a variable, plug into the other.</div>
+      <h3>Tips</h3>
+      <ul>
+        <li>Elimination works well when coefficients are opposites or easy multiples.</li>
+        <li>Always check the solution in both original equations.</li>
+        <li>If you get 0 = 5 → no solution; 0 = 0 → infinite solutions.</li>
+      </ul>
+    `,
+    generate() {
+      const type = randInt(1, 3);
+      let q, ans, exp;
+      if (type === 1) { // simple substitution designed
+        const x = randInt(1, 6), y = randInt(1, 6);
+        const a = randInt(1, 3), b = randInt(1, 3);
+        q = `Solve the system:\n  y = ${a}x + ${y - a*x}\n  x + y = ${x + y}\nEnter the solution as (x,y)`;
+        ans = `(${x},${y})`;
+        exp = `From second equation y = ${x+y} − x. Substitute into first and solve; solution is (${x},${y}).`;
+      } else if (type === 2) {
+        const x = randInt(2, 5), y = randInt(1, 4);
+        q = `Solve by elimination or substitution:\n  2x + y = ${2*x + y}\n  x − y = ${x - y}\nEnter (x,y)`;
+        ans = `(${x},${y})`;
+        exp = `Add the equations: 3x = ${3*x} → x = ${x}. Then y = ${y}.`;
+      } else {
+        q = `How many solutions does this system have?\n  y = 2x + 1\n  y = 2x − 3`;
+        ans = '0';
+        exp = `Same slope (2), different intercepts → parallel lines → no solution (0 solutions).`;
+      }
+      return { q, ans, exp, type: 'input' };
+    }
+  },
+
+  polynomials: {
+    title: "Polynomials (Add, Subtract, Multiply)",
+    tag: "Algebra 1",
+    num: 13,
+    tips: `
+      <h3>Key Ideas</h3>
+      <ul>
+        <li>A polynomial is a sum of terms of the form axⁿ (n is a non-negative integer).</li>
+        <li>Degree is the highest power; leading coefficient is the coefficient of that term.</li>
+        <li>Add/subtract: combine like terms.</li>
+        <li>Multiply: distribute (FOIL for two binomials).</li>
+        <li>Monomial × polynomial: distribute the monomial to every term.</li>
+      </ul>
+      <div class="formula">(x + 3)(x + 4) = x² + 7x + 12 &nbsp;&nbsp;(FOIL)</div>
+      <h3>Tips</h3>
+      <ul>
+        <li>Write polynomials in standard form (descending powers).</li>
+        <li>When subtracting, distribute the minus sign to every term of the second polynomial.</li>
+        <li>FOIL: First, Outer, Inner, Last — then combine like terms.</li>
+      </ul>
+    `,
+    generate() {
+      const type = randInt(1, 4);
+      let q, ans, exp;
+      if (type === 1) {
+        const a = randInt(1, 5), b = randInt(1, 6), c = randInt(1, 5), d = randInt(1, 6);
+        q = `Add: (${a}x + ${b}) + (${c}x + ${d})`;
+        ans = `${a+c}x + ${b+d}`;
+        exp = `Combine like terms: (${a}+${c})x + (${b}+${d}) = ${a+c}x + ${b+d}.`;
+      } else if (type === 2) {
+        const a = randInt(2, 6), b = randInt(1, 5), c = randInt(1, 4), d = randInt(1, 5);
+        q = `Subtract: (${a}x + ${b}) − (${c}x + ${d})`;
+        ans = `${a-c}x + ${b-d}`;
+        exp = `Distribute the minus: ${a}x + ${b} − ${c}x − ${d} = ${a-c}x + ${b-d}.`;
+      } else if (type === 3) {
+        const a = randInt(2, 5), b = randInt(1, 6), c = randInt(1, 4);
+        q = `Multiply: ${a}x(${b}x + ${c})`;
+        ans = `${a*b}x² + ${a*c}x`;
+        exp = `Distribute: ${a}x · ${b}x = ${a*b}x², ${a}x · ${c} = ${a*c}x.`;
+      } else {
+        const a = randInt(1, 4), b = randInt(1, 5), c = randInt(1, 4), d = randInt(1, 5);
+        // (ax+b)(cx+d) = ac x² + (ad+bc)x + bd
+        q = `Multiply (FOIL): (${a}x + ${b})(${c}x + ${d})`;
+        ans = `${a*c}x² + ${a*d + b*c}x + ${b*d}`;
+        exp = `F: ${a*c}x², O: ${a*d}x, I: ${b*c}x, L: ${b*d}. Combine middle: ${a*d+b*c}x.`;
+      }
+      return { q, ans, exp, type: 'input' };
+    }
+  },
+
+  factoring: {
+    title: "Factoring Polynomials",
+    tag: "Algebra 1",
+    num: 14,
+    tips: `
+      <h3>Key Ideas</h3>
+      <ul>
+        <li>Factoring is the reverse of distributing / FOIL.</li>
+        <li>Always factor out the Greatest Common Factor (GCF) first.</li>
+        <li>For x² + bx + c, find two numbers that multiply to c and add to b.</li>
+        <li>Difference of squares: a² − b² = (a − b)(a + b).</li>
+        <li>Perfect-square trinomials: a² ± 2ab + b² = (a ± b)².</li>
+      </ul>
+      <div class="formula">x² + 5x + 6 = (x + 2)(x + 3) &nbsp;&nbsp;|&nbsp;&nbsp; x² − 9 = (x − 3)(x + 3)</div>
+      <h3>Tips</h3>
+      <ul>
+        <li>Check by multiplying back (FOIL) to verify.</li>
+        <li>If the leading coefficient is not 1, use grouping or trial-and-error.</li>
+        <li>A polynomial is factored completely when all factors are prime (cannot factor further).</li>
+      </ul>
+    `,
+    generate() {
+      const type = randInt(1, 4);
+      let q, ans, exp;
+      if (type === 1) {
+        const r = randInt(1, 6), s = randInt(1, 6);
+        q = `Factor: x² + ${r+s}x + ${r*s}`;
+        ans = `(x + ${r})(x + ${s})`;
+        exp = `Find two numbers that multiply to ${r*s} and add to ${r+s}: ${r} and ${s}.`;
+      } else if (type === 2) {
+        const a = randInt(2, 8);
+        q = `Factor: x² − ${a*a}`;
+        ans = `(x − ${a})(x + ${a})`;
+        exp = `Difference of squares: x² − ${a}² = (x − ${a})(x + ${a}).`;
+      } else if (type === 3) {
+        const g = randInt(2, 5), a = randInt(1, 4), b = randInt(1, 6);
+        q = `Factor out the GCF: ${g*a}x + ${g*b}`;
+        ans = `${g}(${a}x + ${b})`;
+        exp = `GCF is ${g}. Factor it out: ${g}(${a}x + ${b}).`;
+      } else {
+        const r = randInt(2, 5), s = randInt(1, 4);
+        q = `Factor: x² − ${r+s}x + ${r*s}`;
+        ans = `(x − ${r})(x − ${s})`;
+        exp = `Numbers that multiply to ${r*s} and add to −${r+s}: −${r} and −${s}.`;
+      }
+      return { q, ans, exp, type: 'input' };
+    }
+  },
+
+  quadratics: {
+    title: "Quadratic Equations",
+    tag: "Algebra 1",
+    num: 15,
+    tips: `
+      <h3>Key Ideas</h3>
+      <ul>
+        <li>Standard form: ax² + bx + c = 0 (a ≠ 0).</li>
+        <li>Solutions are also called roots or zeros.</li>
+        <li>Methods: Factoring, Square-root property, Completing the square, Quadratic formula.</li>
+        <li>Quadratic formula: x = [−b ± √(b² − 4ac)] / (2a)</li>
+        <li>Discriminant D = b² − 4ac tells the nature of the roots.</li>
+      </ul>
+      <div class="formula">x = (−b ± √(b²−4ac)) / (2a)</div>
+      <h3>Tips</h3>
+      <ul>
+        <li>Always try factoring first when the numbers are friendly.</li>
+        <li>If D > 0 two real roots; D = 0 one real root; D < 0 no real roots.</li>
+        <li>Graphically, roots are the x-intercepts of the parabola.</li>
+      </ul>
+    `,
+    generate() {
+      const type = randInt(1, 4);
+      let q, ans, exp;
+      if (type === 1) {
+        const r = randInt(1, 5), s = randInt(1, 5);
+        q = `Solve by factoring: x² + ${r+s}x + ${r*s} = 0\nEnter the solutions separated by a comma (smaller first)`;
+        ans = `${-Math.max(r,s)}, ${-Math.min(r,s)}`.replace(/, -0/, ', 0'); // clean
+        // actually roots are -r and -s
+        const roots = [-r, -s].sort((a,b)=>a-b);
+        ans = roots.join(', ');
+        exp = `Factors: (x + ${r})(x + ${s}) = 0 → x = −${r} or x = −${s}.`;
+      } else if (type === 2) {
+        const a = randInt(2, 6);
+        q = `Solve: x² = ${a*a}\nEnter both solutions (negative first)`;
+        ans = `−${a}, ${a}`;
+        exp = `Square-root both sides: x = ±${a}.`;
+      } else if (type === 3) {
+        const r = randInt(1, 4);
+        q = `Solve: (x − ${r})² = 0`;
+        ans = r.toString();
+        exp = `x − ${r} = 0 → x = ${r} (double root).`;
+      } else {
+        // simple quadratic formula ready numbers
+        // x² - 5x + 6 = 0 → 2,3
+        const pairs = [[5,6,2,3],[7,12,3,4],[6,8,2,4],[9,18,3,6],[8,15,3,5]];
+        const p = pairs[randInt(0, pairs.length-1)];
+        q = `Solve: x² − ${p[0]}x + ${p[1]} = 0\nEnter solutions smaller first`;
+        ans = `${p[2]}, ${p[3]}`;
+        exp = `Factor or use quadratic formula. Roots are ${p[2]} and ${p[3]}.`;
+      }
+      return { q, ans, exp, type: 'input' };
+    }
+  },
+
+  functions: {
+    title: "Functions & Relations",
+    tag: "Algebra 1",
+    num: 16,
+    tips: `
+      <h3>Key Ideas</h3>
+      <ul>
+        <li>A <strong>relation</strong> is any set of ordered pairs.</li>
+        <li>A <strong>function</strong> is a relation in which every input (x) has exactly one output (y).</li>
+        <li>Vertical Line Test: if any vertical line crosses the graph more than once, it is not a function.</li>
+        <li>Function notation: f(x) means the value of the function at x.</li>
+        <li>Domain = set of all possible inputs; Range = set of all possible outputs.</li>
+      </ul>
+      <div class="formula">f(x) = 2x + 3 → f(4) = 11</div>
+      <h3>Tips</h3>
+      <ul>
+        <li>In a table or mapping, check that no x-value repeats with different y-values.</li>
+        <li>Linear functions have constant rate of change (slope).</li>
+        <li>f(x) is just a fancy way of writing y; it does not mean f times x.</li>
+      </ul>
+    `,
+    generate() {
+      const type = randInt(1, 5);
+      let q, ans, exp;
+      if (type === 1) {
+        const m = randInt(1, 5), b = randInt(-4, 6), x = randInt(-3, 6);
+        q = `If f(x) = ${m}x + ${b}, what is f(${x})?`;
+        ans = (m * x + b).toString();
+        exp = `f(${x}) = ${m}(${x}) + ${b} = ${m*x + b}.`;
+      } else if (type === 2) {
+        q = `Does the set {(1,2), (3,4), (1,5)} represent a function? (yes or no)`;
+        ans = 'no';
+        exp = `The input 1 is paired with both 2 and 5 → not a function.`;
+      } else if (type === 3) {
+        q = `Does the set {(0,1), (2,3), (4,1), (5,7)} represent a function? (yes or no)`;
+        ans = 'yes';
+        exp = `Every x appears only once → it is a function.`;
+      } else if (type === 4) {
+        const m = randInt(2, 6), x = randInt(1, 5);
+        q = `If g(x) = ${m}x, evaluate g(${x}) − g(1)`;
+        ans = (m*x - m*1).toString();
+        exp = `g(${x}) = ${m*x}, g(1) = ${m}, difference = ${m*x - m}.`;
+      } else {
+        q = `What is the domain of the function f(x) = √(x − 3)? (write x ≥ …)`;
+        ans = 'x ≥ 3';
+        exp = `Inside the square root must be ≥ 0: x − 3 ≥ 0 → x ≥ 3.`;
+      }
+      return { q, ans, exp, type: 'input' };
+    }
+  }
+};
+
+/* ========== Helpers ========== */
+function randInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+function gcd(a, b) {
+  a = Math.abs(a); b = Math.abs(b);
+  while (b) { [a, b] = [b, a % b]; }
+  return a;
+}
+
+/* ========== State ========== */
+let currentLessonId = 'integers';
+let mode = 'study'; // 'study' | 'quiz'
+let score = 0, attempted = 0, streak = 0;
+let currentQ = null;
+let answered = false;
+let questionCount = 0;
+
+/* ========== DOM ========== */
+const studyArea = document.getElementById('studyArea');
+const quizArea = document.getElementById('quizArea');
+const tipsContent = document.getElementById('tipsContent');
+const lessonTitle = document.getElementById('lessonTitle');
+const lessonTag = document.getElementById('lessonTag');
+const lessonNum = document.getElementById('lessonNum');
+const questionText = document.getElementById('questionText');
+const answerArea = document.getElementById('answerArea');
+const feedback = document.getElementById('feedback');
+const checkBtn = document.getElementById('checkBtn');
+const nextBtn = document.getElementById('nextBtn');
+const hintBtn = document.getElementById('hintBtn');
+const scoreVal = document.getElementById('scoreVal');
+const attemptedVal = document.getElementById('attemptedVal');
+const streakVal = document.getElementById('streakVal');
+const progressFill = document.getElementById('progressFill');
+const quizLessonName = document.getElementById('quizLessonName');
+const qNum = document.getElementById('qNum');
+
+/* ========== Navigation ========== */
+document.querySelectorAll('.nav-item').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentLessonId = btn.dataset.id;
+    loadLesson();
+    if (mode === 'quiz') nextQuestion();
+  });
+});
+
+document.getElementById('studyModeBtn').addEventListener('click', () => setMode('study'));
+document.getElementById('quizModeBtn').addEventListener('click', () => setMode('quiz'));
+document.getElementById('startQuizFromStudy').addEventListener('click', () => setMode('quiz'));
+
+function setMode(m) {
+  mode = m;
+  document.getElementById('studyModeBtn').classList.toggle('active', m === 'study');
+  document.getElementById('quizModeBtn').classList.toggle('active', m === 'quiz');
+  studyArea.classList.toggle('active', m === 'study');
+  quizArea.classList.toggle('active', m === 'quiz');
+  if (m === 'quiz') {
+    questionCount = 0;
+    nextQuestion();
+  } else {
+    loadLesson();
+  }
+}
+
+function loadLesson() {
+  const L = lessons[currentLessonId];
+  lessonTitle.textContent = L.title;
+  lessonTag.textContent = L.tag;
+  lessonNum.textContent = L.num;
+  tipsContent.innerHTML = L.tips;
+  quizLessonName.textContent = L.title.split(' ')[0];
+}
+
+/* ========== Quiz Logic ========== */
+function nextQuestion() {
+  answered = false;
+  questionCount++;
+  qNum.textContent = questionCount;
+  feedback.className = 'feedback';
+  feedback.innerHTML = '';
+  checkBtn.classList.remove('hidden');
+  nextBtn.classList.add('hidden');
+  hintBtn.classList.remove('hidden');
+
+  currentQ = lessons[currentLessonId].generate();
+  questionText.textContent = currentQ.q;
+  answerArea.innerHTML = '';
+
+  if (currentQ.type === 'input') {
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.className = 'answer-input';
+    input.id = 'userAnswer';
+    input.placeholder = 'Type your answer…';
+    input.autocomplete = 'off';
+    answerArea.appendChild(input);
+    input.focus();
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !answered) checkAnswer();
+    });
+  }
+  updateProgress();
+}
+
+function normalize(str) {
+  return str.toString().toLowerCase().replace(/\s+/g, '')
+    .replace(/×/g, '*').replace(/·/g, '*')
+    .replace(/−/g, '-').replace(/–/g, '-')
+    .replace(/\(/g, '').replace(/\)/g, '');
+}
+
+function checkAnswer() {
+  if (answered) return;
+  const input = document.getElementById('userAnswer');
+  if (!input) return;
+  const user = normalize(input.value.trim());
+  if (!user) return;
+
+  const correct = normalize(currentQ.ans);
+  // allow some flexibility
+  let isCorrect = user === correct ||
+    user === correct.replace(',', '') ||
+    (currentQ.ans.includes(',') && user.replace(/\s/g,'') === correct);
+
+  // numeric tolerance
+  if (!isCorrect && !isNaN(parseFloat(user)) && !isNaN(parseFloat(correct))) {
+    isCorrect = Math.abs(parseFloat(user) - parseFloat(correct)) < 0.01;
+  }
+
+  answered = true;
+  attempted++;
+  if (isCorrect) {
+    score++;
+    streak++;
+    feedback.className = 'feedback show correct';
+    feedback.innerHTML = `<strong>✓ Correct!</strong><div class="exp">${currentQ.exp}</div>`;
+  } else {
+    streak = 0;
+    feedback.className = 'feedback show wrong';
+    feedback.innerHTML = `<strong>✗ Not quite.</strong> Correct answer: <strong>${currentQ.ans}</strong><div class="exp">${currentQ.exp}</div>`;
+  }
+  scoreVal.textContent = score;
+  attemptedVal.textContent = attempted;
+  streakVal.textContent = streak;
+  checkBtn.classList.add('hidden');
+  nextBtn.classList.remove('hidden');
+  updateProgress();
+}
+
+function updateProgress() {
+  // visual progress based on questions answered this session (cap at 20 for bar)
+  const pct = Math.min(100, (attempted % 20) / 20 * 100);
+  progressFill.style.width = pct + '%';
+}
+
+checkBtn.addEventListener('click', checkAnswer);
+nextBtn.addEventListener('click', nextQuestion);
+hintBtn.addEventListener('click', () => {
+  if (!currentQ) return;
+  feedback.className = 'feedback show';
+  feedback.style.borderColor = 'var(--warning)';
+  feedback.style.background = 'rgba(245,158,11,0.1)';
+  feedback.innerHTML = `<strong>Hint / Tip</strong><div class="exp">${currentQ.exp.split('.')[0]}.</div>`;
+});
+
+/* Init */
+loadLesson();
+</script>
+</body>
+</html>
